@@ -1,13 +1,21 @@
-import random
+import discord
+from discord.ext import commands
 
-keyword = "+-/*!&$#?=@abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+intents = discord.Intents.default()
+intents.message_content = True
 
-password = ""
+bot = commands.Bot(command_prefix='$', intents=intents)
 
-jumlah_password = int(input('Mau berapa banyak password yang di hasilkan?'))
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
 
-for i in range(jumlah_password):
-    # password = password + random.choice(keyword)
-    password += random.choice(keyword)
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Hi! I am a bot {bot.user}!')
 
-print(password)
+@bot.command()
+async def heh(ctx, count_heh = 5):
+    await ctx.send("he" * count_heh)
+
+bot.run(" ")
